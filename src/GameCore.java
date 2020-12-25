@@ -1,6 +1,8 @@
 import java.util.Random;
 
-
+/*
+    Class for handling game field. Check, validate turns...
+ */
 public class GameCore {
 
     private static int SIZE;
@@ -90,8 +92,5 @@ public class GameCore {
     private static boolean isCoordNotValid(int idx) {
         return idx < 0 || idx > SIZE;
     }
-
-
-
 
 }
