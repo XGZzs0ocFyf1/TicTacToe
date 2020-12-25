@@ -19,16 +19,7 @@ public class Cell {
         int startX = (x/side)*side;
         int startY = (y/side)*side;
 
-        if (this.x >= startX && this.x < startX+side && this.y >= startY && this.y < startY+side){
-            System.out.println("x = "+x);
-            System.out.println("y = "+y);
-            System.out.println("startX = "+startX);
-            System.out.println("startY = " +startY);
-            System.out.println("isItYou::x = "+startX+" y = "+startY);
-            return true;
-        }
-
-        return false;
+        return this.x >= startX && this.x < startX + side && this.y >= startY && this.y < startY + side;
 
     }
 
@@ -37,14 +28,6 @@ public class Cell {
         return this.getCellValue().equals(symbol+"");
     }
 
-   /* @Override
-    public String toString() {
-        return "Cell{" +
-                "side=" + side +
-                ", x=" + x +
-                ", y=" + y +
-                '}';
-    }*/
 
     @Override
     public String toString() {
@@ -56,9 +39,7 @@ public class Cell {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return side == cell.side &&
-                x == cell.x &&
-                y == cell.y;
+        return x == cell.x && y == cell.y;
     }
 
     @Override

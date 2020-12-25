@@ -24,8 +24,6 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
         setSize(FIELD_SIZE, FIELD_SIZE);
         addMouseListener(this);
         game = new GameCore(CELLS_IN_LINE);
-        System.out.println("The game was created");
-        game.printMap();
 
         for (int rowIdx = 0; rowIdx < CELLS_IN_LINE; rowIdx++) {
             for (int colIdx = 0; colIdx < CELLS_IN_LINE; colIdx++) {
@@ -67,7 +65,6 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
         for (int i = 0; i < CELLS_IN_LINE; i++) {
             g.drawLine(0, i * CELL_SIDE, FIELD_SIZE, i * CELL_SIDE); //draw horizontal line
             g.drawLine(i * CELL_SIDE, 0, i * CELL_SIDE, FIELD_SIZE); //draw vertical line
-
         }
     }
 
@@ -100,12 +97,9 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
     public void makeOneStep(MouseEvent e) {
 
         if (isGameStopped) {
-            System.out.println("Игра остановлена. Победитель " + winner);
             return;
         }
 
-        System.out.println("You click!");
-        System.out.println(e.getY() + " " + e.getX());
 
         int currentX = e.getX();
         int currentY = e.getY();
@@ -139,24 +133,13 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
 
     //user turn
     private void userTurn(int currentY, int currentX) {
-        System.out.println("Ходит пользователь");
-
         for (int rowIdx = 0; rowIdx < game.getField()[0].length; rowIdx++) {
             for (int colIdx = 0; colIdx < game.getField().length; colIdx++) {
-
                 Cell cell = game.getField()[rowIdx][colIdx];
-                if (cell.isItYou(currentY, currentX)) {
-                    System.out.println("Ты нажал на ячейку " + cell + "colIdx = " + colIdx + " : rowIdx =" + rowIdx);
-
-                    if (!game.isCellValid(rowIdx, colIdx, GameCore.DOT_X)) {
-                        System.out.println("Клеточка " + cell + " " + colIdx + " : " + rowIdx + " занята. Нажми на другую");
-                    }
-                    game.getField()[rowIdx][colIdx].setCellValue("X");
-                }
+                if (cell.isItYou(currentY, currentX)) game.getField()[rowIdx][colIdx].setCellValue("X");
             }
         }
         repaint();
-        System.out.println("пользователь походил ");
     }
 
     private void computerTurn() {
@@ -168,16 +151,14 @@ public class GamePanel extends JPanel implements ActionListener, MouseListener {
         do {
             rowIdx = rand.nextInt(CELLS_IN_LINE);
             colIdx = rand.nextInt(CELLS_IN_LINE);
-            System.out.printf("Ходит компьютер x =  %s y =  %s \n", rowIdx, colIdx);
         } while (!game.isCellValid(rowIdx, colIdx, GameCore.DOT_O));
         game.getField()[rowIdx][colIdx] = new Cell(rowIdx, colIdx, GameCore.DOT_O + "");
-        game.printMap();
         repaint();
-        System.out.println("компьютер походил");
+
     }
 
 
-    //default iterface methods do not overrided
+    //default interface methods do not override
     @Override
     public void mousePressed(MouseEvent e) {
     }
